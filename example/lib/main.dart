@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mask_input_formatter1/mask_input_formatter.dart';
+import 'package:mask_input_formatter/mask_input_formatter.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,4 +1,4 @@
-name: mask_input_formatter1
+name: mask_input_formatter
 description: TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 version: 0.0.1
 author Amjad Jamali <amjadjamali06@gmail.com>:

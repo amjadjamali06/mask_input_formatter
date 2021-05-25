@@ -1,9 +1,10 @@
 name: mask_input_formatter
-description: A Package for Mask Input Formatter Independent of Flutter version.
+description: An Example to Test Package for Mask Input Formatter.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+homepage https://github.com/amjadjamali06/mask_input_formatter:
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

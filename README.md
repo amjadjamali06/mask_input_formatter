@@ -12,19 +12,19 @@ Check 'example' folder for code sample
 
 ## Usage
 1. Follow the install guide
-1. Importing the library:
+2. Importing the library:
 
 ```dart
 import 'package:mask_input_formatter/mask_input_formatter.dart';
 ```
 
-1. Create a mask formatter:
+3. Create a mask formatter:
 
 ```dart
 MaskInputFormatter myFormatter =  MaskInputFormatter('(AA) #####', regexp: RegExp.lettersAndNumbers);
 ```
 
-1. Set with TextField/TextFormField:
+4. Set with TextField/TextFormField:
 
 ```dart
 TextFormField(

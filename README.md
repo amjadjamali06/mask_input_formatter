@@ -15,7 +15,7 @@ Check 'example' folder for code sample
 1. Importing the library:
 
 ```dart
-import 'package:device_information/device_information.dart';
+import 'package:mask_input_formatter/mask_input_formatter.dart';
 ```
 
 1. Create a mask formatter:

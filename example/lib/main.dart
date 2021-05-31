@@ -38,28 +38,32 @@ class _UsersData extends State<UsersData> {
                   children: [
                     TextFormField(
                       inputFormatters: [
-                        MaskInputFormatter('#####-#######-#', regexp: RegExp.numbers),
+                        MaskInputFormatter(mask: '#####-#######-#'),
                       ],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "42000-0000000-0",
                       ),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
                     ),
                     SizedBox(height: 4),
                     TextFormField(
                       inputFormatters: [
-                        MaskInputFormatter('+# (###) ###-##-##', regexp: RegExp.numbers),
+                        MaskInputFormatter(mask: '+# (###) ###-##-##'),
                       ],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "+1 (234) 567-89-01",
                       ),
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: 4),
                     TextFormField(
                       inputFormatters: [
-                        MaskInputFormatter('##/##/####', regexp: RegExp.numbers),
+                        MaskInputFormatter(mask: '##/##/####'),
                       ],
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "23/05/2021",
@@ -67,11 +71,12 @@ class _UsersData extends State<UsersData> {
                     ),
                     SizedBox(height: 4),
                     TextFormField(
-                      inputFormatters: [MaskInputFormatter('(AA) #####', regexp: RegExp.lettersAndNumbers)],
+                      inputFormatters: [MaskInputFormatter(mask: '(AA) ### #######', textAllCaps: true)],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "(AB) 12345",
+                        hintText: "(AB) 301 4567890",
                       ),
+                      textInputAction: TextInputAction.next,
                     ),
                   ],
                 ),

@@ -23,7 +23,7 @@ class MaskInputFormatter extends TextInputFormatter {
 
   int _offset;
 
-  MaskInputFormatter({String mask, bool textAllCaps} ){
+  MaskInputFormatter({@required String mask, bool textAllCaps} ){
     _textAllCaps = textAllCaps!=null;
     this._mask = mask;
     if(mask.contains('#') && mask.contains('A') ) _regex = _letters+_numbers;
@@ -59,17 +59,17 @@ class MaskInputFormatter extends TextInputFormatter {
     }
   }
 
-  TextEditingValue formatText(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue _formatText(TextEditingValue oldValue, TextEditingValue newValue) {
 
-    String newText = getUnmaskedText(newValue.text);
+    String newText = _getUnmaskedText(newValue.text);
 
-    newText = getValidText(newText);
+    newText = _getValidText(newText);
 
     _offset = newValue.selection.baseOffset;
 
-    String oldText = getUnmaskedText(oldValue.text);
+    String oldText = _getUnmaskedText(oldValue.text);
 
-    String filteredText = getMaskedText(newText, oldText);
+    String filteredText = _getMaskedText(newText, oldText);
 
     if (newText == oldText && !_isBackPressed) {
       _offset--;
@@ -125,7 +125,7 @@ class MaskInputFormatter extends TextInputFormatter {
     _isBackPressed = _newLength<_oldLength;
 
     if(_isBackPressed){
-      return formatText(oldValue, newValue);
+      return _formatText(oldValue, newValue);
     }else {
       _newChar = newValue.text[oldValue.selection.baseOffset];
     }
@@ -139,41 +139,41 @@ class MaskInputFormatter extends TextInputFormatter {
         && _newLength>_oldLength
     ){
       if(_newLength>_oldLength){
-        return  formatText(oldValue, TextEditingValue(
+        return  _formatText(oldValue, TextEditingValue(
           text: newValue.text.substring(0, _maxLength),
           selection: newValue.selection,
         ));
       }
       return oldValue;
     }else{
-      return formatText(oldValue, newValue);
+      return _formatText(oldValue, newValue);
     }
   }
 
 
 
-  bool isNumber(String ch){
+  bool _isNumber(String ch){
     return _numbers.contains(ch);
   }
 
-  bool isLetter(String ch){
+  bool _isLetter(String ch){
     return _letters.contains(ch.toLowerCase());
   }
 
-  bool isValid(String ch){
+  bool _isValid(String ch){
     return _regex.contains(ch.toLowerCase());
   }
 
-  String getValidText(String temp){
+  String _getValidText(String temp){
     String text='';
     for (int i = 0, j=0; i < temp.length && j<_allowableValues.length; i++) {
       String ch = temp[i];
       String regCh = _allowableValues[j];
-      if(regCh == 'A' && isLetter(ch)) {
+      if(regCh == 'A' && _isLetter(ch)) {
         text = text + ch;
         j++;
       }
-      else if(regCh == '#' && isNumber(ch)) {
+      else if(regCh == '#' && _isNumber(ch)) {
         text = text + ch;
         j++;
       }
@@ -181,16 +181,16 @@ class MaskInputFormatter extends TextInputFormatter {
     return text;
   }
 
-  String getUnmaskedText(String temp){
+  String _getUnmaskedText(String temp){
     String text = '';
     for (int i = 0; i < temp.length; i++) {
       String ch = temp[i];
-      text = text + (isValid(ch)?ch:'');
+      text = text + (_isValid(ch)?ch:'');
     }
     return text;
   }
 
-  String getMaskedText(String newText, String oldText){
+  String _getMaskedText(String newText, String oldText){
     String text='';
     for (int i = 0, j = 0; i < newText.length; ) {
       if (j < _maskChars.length && i == _maskIndices[j]-j) {

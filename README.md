@@ -21,7 +21,7 @@ import 'package:mask_input_formatter/mask_input_formatter.dart';
 3. Create a mask formatter:
 
 ```dart
-MaskInputFormatter myFormatter =  MaskInputFormatter('(AA) #####', regexp: RegExp.lettersAndNumbers);
+MaskInputFormatter myFormatter =  MaskInputFormatter(mask: '(AA) #####');
 ```
 
 4. Set with TextField/TextFormField:
@@ -47,11 +47,11 @@ TextFormField(
 You can use the mask whatever you defined in formatter:
 
 ```dart
-MaskInputFormatter dateFormatter =  MaskInputFormatter('##/##/####', regexp: RegExp.numbers);
+MaskInputFormatter dateFormatter =  MaskInputFormatter(mask: '##/##/####');
 // --> 26/05/2021
-MaskInputFormatter phoneFormatter =  MaskInputFormatter('+# (###) ###-####', regexp: RegExp.numbers);
+MaskInputFormatter phoneFormatter =  MaskInputFormatter(mask: '+# (###) ###-####');
 // --> +1 (234) 567-8901
-MaskInputFormatter numberFormatter =  MaskInputFormatter('AAA-###', regexp: RegExp.numbers);
+MaskInputFormatter numberFormatter =  MaskInputFormatter(mask: 'AAA-###', textAllCaps: true);
 // --> XYZ-789
 ```
 ## Contributing

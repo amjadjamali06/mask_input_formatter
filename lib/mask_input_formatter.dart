@@ -3,45 +3,49 @@ library mask_input_formatter;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-enum RegExp {
-  letters,
-  numbers,
-  lettersAndNumbers
-}
+class MaskInputFormatter extends TextInputFormatter {
 
-class MaskInputFormatter extends TextInputFormatter{
-
-  static const String letters = 'abcdefghijklmnopqrstuvwxyz';
-  static const String numbers = '1234567890';
-  static const String lettersAndNumbers = 'abcdefghijklmnopqrstuvwxyz1234567890';
 
   List<String> _maskChars = [];
   List<int> _maskIndices = [];
 
-  String regex = lettersAndNumbers;
-  final String mask;
+  String _letters = 'abcdefghijklmnopqrstuvwxyz';
+  String _numbers = '1234567890';
+  String _regex='';
+  String _mask;
   String _allowableValues='';
+  String _newChar='';
 
-  final RegExp regexp;
+  bool _textAllCaps = false;
+  bool _isBackPressed=false;
 
-  MaskInputFormatter(this.mask, {@required this.regexp}){
-    switch(regexp){
-      case RegExp.numbers:{ regex = numbers; }break;
-      case RegExp.lettersAndNumbers:{ regex = lettersAndNumbers; }break;
-      case RegExp.letters:{ regex = letters; }break;
-      default:{ regex = lettersAndNumbers; }break;
+  int _maxLength=0, _newLength=0, _oldLength=0;
+
+  int _offset;
+
+  MaskInputFormatter({String mask, bool textAllCaps} ){
+    _textAllCaps = textAllCaps!=null;
+    this._mask = mask;
+    if(mask.contains('#') && mask.contains('A') ) _regex = _letters+_numbers;
+    else if(mask.contains('#')) _regex = _numbers;
+    else if(mask.contains('A')) _regex = _letters;
+    else {
+      print('invalid mask \'$mask\' (Ex.\'AAA-###\')');
+      _mask='';
+      return;
     }
+    _maxLength = mask.length;
+
     int maskPos = 0;
-    for (int i =0 ;i<mask.length;) {
-      String ch = mask.characters.characterAt(i).toString();
+    for (int i =0 ;i<_maxLength;) {
+      String ch = mask[i];
       if(ch!='#' && ch!='A'){
         String sChar = '';
-        for(;(sChar!='#' && sChar!='A' && i<mask.length);){
+        for(;(sChar!='#' && sChar!='A' && i<_maxLength);){
           ch=ch+sChar;
           i++;
-          if(i<mask.length) {
-            print('${mask.characters.characterAt(i).toString()}');
-            sChar = mask.characters.characterAt(i).toString();
+          if(i<_maxLength) {
+            sChar = mask[i];
           }
         }
         _maskIndices.add(maskPos);
@@ -55,105 +59,155 @@ class MaskInputFormatter extends TextInputFormatter{
     }
   }
 
-
   TextEditingValue formatText(TextEditingValue oldValue, TextEditingValue newValue) {
 
-    String text = '';
-    String temp = newValue.text;
+    String newText = getUnmaskedText(newValue.text);
 
-    for (int i = 0; i < temp.length; i++) {
-      String ch = temp.characters.characterAt(i).toString();
-      if (regex.contains(ch.toLowerCase())) {
-        text = text + ch;
-      }
-    }
+    newText = getValidText(newText);
 
-    temp = text;
-    text='';
-    for (int i = 0; i < temp.length; i++) {
-      String ch = temp.characters.characterAt(i).toString();
-      String regCh = _allowableValues.characters.characterAt(i).toString();
-      if(regCh == 'A' && letters.contains(ch))
-        text = text + ch;
-      else if(regCh == '#' && numbers.contains(ch))
-        text = text + ch;
-    }
+    _offset = newValue.selection.baseOffset;
 
-    int offset = newValue.selection.baseOffset;
+    String oldText = getUnmaskedText(oldValue.text);
 
-    temp = oldValue.text;
-    String oldText = '';
-    for (int i = 0; i < temp.length; i++) {
-      String ch = temp.characters.characterAt(i).toLowerCase().toString();
-      if (regex.contains(ch)) {
-        oldText = oldText + ch;
-      }
-    }
+    String filteredText = getMaskedText(newText, oldText);
 
-    if (text == oldText && newValue.text.length > oldValue.text.length) {
-      offset--;
-    }
-
-    String filteredText = '';
-
-    for (int i = 0, j = 0; i < text.length; ) {
-      if (j < _maskChars.length && i == _maskIndices[j]-j) {
-        filteredText = filteredText + _maskChars[j];
-        j++;
-      }
-      filteredText = filteredText + text[i];
-      i++;
-      if(i == text.length){
-        if (j < _maskChars.length && i == _maskIndices[j]-j) {
-          filteredText = filteredText + _maskChars[j];
-          j++;
-        }
-      }
+    if (newText == oldText && !_isBackPressed) {
+      _offset--;
     }
 
     int maskSpaces=0;
-    if (newValue.text.length > oldValue.text.length) {
+    if (!_isBackPressed) {
       for(int mIndex, i=0 ;i<_maskIndices.length; i++){
         mIndex = _maskIndices.elementAt(i)+maskSpaces+1;
-        offset = (offset == mIndex) ? offset+_maskChars.elementAt(i).length : offset;
+        _offset = (_offset == mIndex) ? _offset+_maskChars.elementAt(i).length : _offset;
         maskSpaces = (maskSpaces+_maskChars.elementAt(i).length-1);
       }
 
       for(int i=0 ; i < _maskIndices.length ; i++) {
-        if(_maskIndices[i] == (offset-i+(i>0?1:0))) {
-          offset = _maskChars[i].length+offset;
+        if(_maskIndices[i] == (_offset-i+(i>0?1:0))) {
+          _offset = _maskChars[i].length+_offset;
           break;
         }
       }
-    }
-    else if (newValue.text.length < oldValue.text.length) {
-      while(text == oldText && offset>1 && !regex.contains(filteredText[offset-1])) {
-        offset--;
+    } else {
+      while(newText == oldText && _offset>1 && !_regex.contains(filteredText[_offset-1].toLowerCase())) {
+        _offset--;
       }
     }
 
-    if(offset>filteredText.length){
-      offset = filteredText.length;
+    while(_offset<filteredText.length && !_isBackPressed && !_regex.contains(filteredText[_offset])){
+      _offset++;
+    }
+
+    if(_offset>filteredText.length){
+      _offset = filteredText.length;
     }
 
     return TextEditingValue(
-        text: filteredText,
-        selection: TextSelection(
-            baseOffset: offset,
-            extentOffset: offset,
-            affinity: newValue.selection.affinity,
-            isDirectional: newValue.selection.isDirectional
-        )
+      text: _textAllCaps?filteredText.toUpperCase():filteredText,
+      selection: TextSelection(
+          baseOffset: _offset,
+          extentOffset: _offset,
+          affinity: newValue.selection.affinity,
+          isDirectional: newValue.selection.isDirectional
+      ),
     );
   }
 
+
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    if(oldValue.text.length == mask.length && newValue.text.length >= mask.length){
+    if(_mask==''){
+      return newValue;
+    }
+    _newLength = newValue.text.length;
+    _oldLength = oldValue.text.length;
+    _isBackPressed = _newLength<_oldLength;
+
+    if(_isBackPressed){
+      return formatText(oldValue, newValue);
+    }else {
+      _newChar = newValue.text[oldValue.selection.baseOffset];
+    }
+
+    if(!_regex.contains(_newChar) && _oldLength == _newLength-1 ){
+      return oldValue;
+    }else if(_oldLength==_maxLength && _newLength>=_maxLength){
+      return oldValue;
+    }else if(newValue.composing.start!=-1
+        && !_letters.contains(newValue.text[oldValue.selection.baseOffset])
+        && _newLength>_oldLength
+    ){
+      if(_newLength>_oldLength){
+        return  formatText(oldValue, TextEditingValue(
+          text: newValue.text.substring(0, _maxLength),
+          selection: newValue.selection,
+        ));
+      }
       return oldValue;
     }else{
       return formatText(oldValue, newValue);
     }
+  }
+
+
+
+  bool isNumber(String ch){
+    return _numbers.contains(ch);
+  }
+
+  bool isLetter(String ch){
+    return _letters.contains(ch.toLowerCase());
+  }
+
+  bool isValid(String ch){
+    return _regex.contains(ch.toLowerCase());
+  }
+
+  String getValidText(String temp){
+    String text='';
+    for (int i = 0, j=0; i < temp.length && j<_allowableValues.length; i++) {
+      String ch = temp[i];
+      String regCh = _allowableValues[j];
+      if(regCh == 'A' && isLetter(ch)) {
+        text = text + ch;
+        j++;
+      }
+      else if(regCh == '#' && isNumber(ch)) {
+        text = text + ch;
+        j++;
+      }
+    }
+    return text;
+  }
+
+  String getUnmaskedText(String temp){
+    String text = '';
+    for (int i = 0; i < temp.length; i++) {
+      String ch = temp[i];
+      text = text + (isValid(ch)?ch:'');
+    }
+    return text;
+  }
+
+  String getMaskedText(String newText, String oldText){
+    String text='';
+    for (int i = 0, j = 0; i < newText.length; ) {
+      if (j < _maskChars.length && i == _maskIndices[j]-j) {
+        text = text + _maskChars[j];
+        j++;
+      }
+      text = text + newText[i];
+      i++;
+
+      if(i == newText.length && newText.length >= oldText.length){
+        if (((_offset>=text.length)||newText.length==1) && j < _maskChars.length && i == _maskIndices[j]-j) {
+          text = text + _maskChars[j];
+          j++;
+        }
+      }
+    }
+    return text;
   }
 
 }

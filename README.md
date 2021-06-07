@@ -2,13 +2,13 @@
 
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 
-![Flutter Logo](/images/flutter_image.png)
+![Flutter Logo](https://raw.githubusercontent.com/amjadjamali06/mask_input_formatter/master/images/flutter_image.png)
 
 ## Example
 
 Check 'example' folder for code sample
 
-![Example Input](/images/mask_example.gif)
+![Example Input](https://raw.githubusercontent.com/amjadjamali06/mask_input_formatter/master/images/mask_example.gif)
 
 ## Usage
 1. Follow the install guide

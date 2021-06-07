@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## 0.0.1 - 07-Jun-2021.
 
-* TODO: Describe initial release.
+* A flutter package to mask input text.

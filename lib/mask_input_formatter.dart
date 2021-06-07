@@ -3,8 +3,9 @@ library mask_input_formatter;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MaskInputFormatter extends TextInputFormatter {
+/* @Autor Amjad Jamali */
 
+class MaskInputFormatter extends TextInputFormatter {
 
   List<String> _maskChars = [];
   List<int> _maskIndices = [];
@@ -26,6 +27,7 @@ class MaskInputFormatter extends TextInputFormatter {
   MaskInputFormatter({@required String mask, bool textAllCaps} ){
     _textAllCaps = textAllCaps!=null;
     this._mask = mask;
+    /// checking regex in mask
     if(mask.contains('#') && mask.contains('A') ) _regex = _letters+_numbers;
     else if(mask.contains('#')) _regex = _numbers;
     else if(mask.contains('A')) _regex = _letters;
@@ -37,6 +39,7 @@ class MaskInputFormatter extends TextInputFormatter {
     _maxLength = mask.length;
 
     int maskPos = 0;
+    /// separating mask characters and indices form applied mask
     for (int i =0 ;i<_maxLength;) {
       String ch = mask[i];
       if(ch!='#' && ch!='A'){
@@ -59,6 +62,7 @@ class MaskInputFormatter extends TextInputFormatter {
     }
   }
 
+  /// method to format user input into given mask
   TextEditingValue _formatText(TextEditingValue oldValue, TextEditingValue newValue) {
 
     String newText = _getUnmaskedText(newValue.text);
@@ -76,6 +80,7 @@ class MaskInputFormatter extends TextInputFormatter {
     }
 
     int maskSpaces=0;
+    /// maintain offset(cursor position) occording to given mask
     if (!_isBackPressed) {
       for(int mIndex, i=0 ;i<_maskIndices.length; i++){
         mIndex = _maskIndices.elementAt(i)+maskSpaces+1;
@@ -103,6 +108,7 @@ class MaskInputFormatter extends TextInputFormatter {
       _offset = filteredText.length;
     }
 
+    /// returning new value with masked text
     return TextEditingValue(
       text: _textAllCaps?filteredText.toUpperCase():filteredText,
       selection: TextSelection(
@@ -127,12 +133,15 @@ class MaskInputFormatter extends TextInputFormatter {
     if(_isBackPressed){
       return _formatText(oldValue, newValue);
     }else {
+      /// get new inserted character 
       _newChar = newValue.text[oldValue.selection.baseOffset];
     }
 
     if(!_regex.contains(_newChar) && _oldLength == _newLength-1 ){
+      /// if new value not contain allowable values return old value
       return oldValue;
     }else if(_oldLength==_maxLength && _newLength>=_maxLength){
+      /// if already inserted max chars return old value
       return oldValue;
     }else if(newValue.composing.start!=-1
         && !_letters.contains(newValue.text[oldValue.selection.baseOffset])
@@ -146,16 +155,18 @@ class MaskInputFormatter extends TextInputFormatter {
       }
       return oldValue;
     }else{
+      /// format input value
       return _formatText(oldValue, newValue);
     }
   }
 
 
-
+  /// check if number
   bool _isNumber(String ch){
     return _numbers.contains(ch);
   }
 
+  /// check if Letter
   bool _isLetter(String ch){
     return _letters.contains(ch.toLowerCase());
   }
@@ -164,6 +175,7 @@ class MaskInputFormatter extends TextInputFormatter {
     return _regex.contains(ch.toLowerCase());
   }
 
+  /// validate text 
   String _getValidText(String temp){
     String text='';
     for (int i = 0, j=0; i < temp.length && j<_allowableValues.length; i++) {
@@ -181,6 +193,7 @@ class MaskInputFormatter extends TextInputFormatter {
     return text;
   }
 
+  /// get unmasked text
   String _getUnmaskedText(String temp){
     String text = '';
     for (int i = 0; i < temp.length; i++) {
@@ -190,6 +203,7 @@ class MaskInputFormatter extends TextInputFormatter {
     return text;
   }
 
+  /// get masked text
   String _getMaskedText(String newText, String oldText){
     String text='';
     for (int i = 0, j = 0; i < newText.length; ) {

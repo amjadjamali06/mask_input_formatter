@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
+/// import mask_input_formmater pagkage to your class
 import 'package:mask_input_formatter/mask_input_formatter.dart';
+
+/* @Autor Amjad Jamali */
 
 void main() => runApp(MyApp());
 
@@ -38,6 +42,7 @@ class _UsersData extends State<UsersData> {
                   children: [
                     TextFormField(
                       inputFormatters: [
+                        // Binding MaskInputFormatter with TextField
                         MaskInputFormatter(mask: '#####-#######-#'),
                       ],
                       decoration: InputDecoration(
@@ -46,6 +51,16 @@ class _UsersData extends State<UsersData> {
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(height: 4),
+                    TextFormField(
+                      // another example with text and numbers
+                      inputFormatters: [MaskInputFormatter(mask: '(AA) ### #######', textAllCaps: true)],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "(AB) 301 4567890",
+                      ),
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: 4),
                     TextFormField(
@@ -68,15 +83,6 @@ class _UsersData extends State<UsersData> {
                         border: OutlineInputBorder(),
                         hintText: "23/05/2021",
                       ),
-                    ),
-                    SizedBox(height: 4),
-                    TextFormField(
-                      inputFormatters: [MaskInputFormatter(mask: '(AA) ### #######', textAllCaps: true)],
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "(AB) 301 4567890",
-                      ),
-                      textInputAction: TextInputAction.next,
                     ),
                   ],
                 ),

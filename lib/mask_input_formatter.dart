@@ -39,7 +39,7 @@ class MaskInputFormatter extends TextInputFormatter {
     _maxLength = mask.length;
 
     int maskPos = 0;
-    /// separating mask characters and indices form applied mask
+    /// separating mask characters and positions form applied mask
     for (int i =0 ;i<_maxLength;) {
       String ch = mask[i];
       if(ch!='#' && ch!='A'){

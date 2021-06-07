@@ -59,7 +59,7 @@ MaskInputFormatter numberFormatter =  MaskInputFormatter(mask: 'AAA-###', textAl
 In last example. --> (AAA-###)
 * 'A' character will allow only letters from A-Z.
 * '#' character will allow only numbers.
-* And other characters will be added as mask.
+* And other characters and symbols will be added as mask.
 
 ## Contributing
 Suggestions and Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

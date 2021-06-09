@@ -12,19 +12,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UsersData(),
+      home: FormatterExample(),
     );
   }
 }
+
 /// An Example class to test [MaskInputFormatter]
-class UsersData extends StatefulWidget {
-  const UsersData({Key key}) : super(key: key);
+class FormatterExample extends StatefulWidget {
+  const FormatterExample({Key? key}) : super(key: key);
 
   @override
   _UsersData createState() => _UsersData();
 }
 
-class _UsersData extends State<UsersData> {
+class _UsersData extends State<FormatterExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

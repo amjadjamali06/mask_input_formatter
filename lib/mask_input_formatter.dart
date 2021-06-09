@@ -18,50 +18,49 @@ class MaskInputFormatter extends TextInputFormatter {
   String _letters = 'abcdefghijklmnopqrstuvwxyz';
   String _numbers = '1234567890';
   String _regex = '';
-  String _mask;
+  String? mask='';
   String _allowableValues = '';
   String _newChar = '';
 
-  bool _textAllCaps = false;
+  bool? textAllCaps;
   bool _isBackPressed = false;
 
   int _maxLength = 0, _newLength = 0, _oldLength = 0;
 
-  int _offset;
+  int _offset=0;
 
   /// The constructor of [MaskInputFormatter] class accepts two arguments.
   /// 1. [mask] this is required parameter, text will be formatted on the basis of this mask,
   /// 2. [textAllCaps] this is optional, when user wants all letters capital then he can set [textAllCaps] = true,
-  MaskInputFormatter({@required String mask, bool textAllCaps}) {
-    _textAllCaps = textAllCaps != null;
-    this._mask = mask;
-
+  MaskInputFormatter({required this.mask, this.textAllCaps}) {
+    textAllCaps=textAllCaps??false;
+    mask=mask??'';
     /// checking regex in mask
-    if (mask.contains('#') && mask.contains('A'))
+    if (mask!.contains('#') && mask!.contains('A'))
       _regex = _letters + _numbers;
-    else if (mask.contains('#'))
+    else if (mask!.contains('#'))
       _regex = _numbers;
-    else if (mask.contains('A'))
+    else if (mask!.contains('A'))
       _regex = _letters;
     else {
       print('invalid mask \'$mask\' (Ex.\'AAA-###\')');
-      _mask = '';
+      mask = '';
       return;
     }
-    _maxLength = mask.length;
+    _maxLength = mask!.length;
 
     int maskPos = 0;
 
     /// separating mask characters and positions form applied mask
     for (int i = 0; i < _maxLength;) {
-      String ch = mask[i];
+      String ch = mask![i];
       if (ch != '#' && ch != 'A') {
         String sChar = '';
         for (; (sChar != '#' && sChar != 'A' && i < _maxLength);) {
           ch = ch + sChar;
           i++;
           if (i < _maxLength) {
-            sChar = mask[i];
+            sChar = mask![i];
           }
         }
         _maskIndices.add(maskPos);
@@ -130,7 +129,7 @@ class MaskInputFormatter extends TextInputFormatter {
 
     /// returning new value with masked text
     return TextEditingValue(
-      text: _textAllCaps ? filteredText.toUpperCase() : filteredText,
+      text: textAllCaps! ? filteredText.toUpperCase() : filteredText,
       selection: TextSelection(
           baseOffset: _offset,
           extentOffset: _offset,
@@ -143,7 +142,7 @@ class MaskInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    if (_mask == '') {
+    if (mask == '') {
       return newValue;
     }
     _newLength = newValue.text.length;

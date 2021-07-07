@@ -1,6 +1,6 @@
 # mask_input_formatter
 
-[![pub package](https://img.shields.io/pub/v/effective_dart.svg)](https://pub.dartlang.org/packages/effective_dart)
+[![pub package](https://img.shields.io/pub/v/mask_input_formatter.svg)](https://pub.dartlang.org/packages/mask_input_formatter)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.

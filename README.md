@@ -1,5 +1,7 @@
 # mask_input_formatter
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 
 ![flutter_image](https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png) 

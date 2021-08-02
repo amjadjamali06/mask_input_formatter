@@ -6,14 +6,15 @@
 
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 
-![flutter_image](https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png) 
+![flutter_image](https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png){:width="50%"} 
+<img height="480px" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
 
 ## Example
 
 Check 'example' folder for code sample
 
-![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif)
-
+![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif){:width="50%"}
+<img height="480px" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
 ## Usage
 1. Follow the install guide
 2. Importing the library:

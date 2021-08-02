@@ -15,6 +15,8 @@ Check 'example' folder for code sample
 
 <!-- ![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif){:width="50%"} -->
 <img width="40%" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
+
+
 ## Usage
 
 1. Add dependency.

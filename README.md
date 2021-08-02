@@ -6,17 +6,33 @@
 
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 
-![flutter_image](https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png | width=100) 
+<!-- ![flutter_image](https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png | width=100)  -->
 <img WIDTH="60%" src="https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png">
+<br />
 
 ## Example
-
 Check 'example' folder for code sample
 
 <!-- ![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif){:width="50%"} -->
 <img width="40%" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
 ## Usage
-1. Follow the install guide
+
+<br />
+1. Add dependency.
+<br />
+Run this command:
+<br />
+With Flutter:
+```dart
+$ flutter pub add mask_input_formatter
+```
+<br />
+or add following package in your `pubspec.yaml` file inside the `dependencies:` section.
+```dart
+dependencies:
+  mask_input_formatter: ^0.0.3
+```
+<br />
 2. Importing the library:
 
 ```dart

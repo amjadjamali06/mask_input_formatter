@@ -11,8 +11,8 @@ The package provides TextInputFormatter for TextField and TextFormField which fo
 <br />
 
 ## Demo
-Check 'example' folder for code sample
-
+Check [example](https://pub.dartlang.org/packages/mask_input_formatter/example) folder for code sample
+1. Follow the install 
 <!-- ![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif){:width="50%"} -->
 <img width="40%" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
 

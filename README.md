@@ -10,7 +10,7 @@ The package provides TextInputFormatter for TextField and TextFormField which fo
 <img WIDTH="60%" src="https://user-images.githubusercontent.com/84534787/120998591-a95c6980-c7a1-11eb-9435-7d7587f0b32b.png">
 <br />
 
-## Example
+## Demo
 Check 'example' folder for code sample
 
 <!-- ![mask_example](https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif){:width="50%"} -->

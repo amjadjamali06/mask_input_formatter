@@ -17,22 +17,21 @@ Check 'example' folder for code sample
 <img width="40%" src="https://user-images.githubusercontent.com/84534787/120998728-ca24bf00-c7a1-11eb-97a4-3d96df827c40.gif">
 ## Usage
 
-<br />
 1. Add dependency.
-<br />
+
 Run this command:
-<br />
+
 With Flutter:
+
 ```dart
 $ flutter pub add mask_input_formatter
 ```
-<br />
+
 or add following package in your `pubspec.yaml` file inside the `dependencies:` section.
 ```dart
 dependencies:
   mask_input_formatter: ^0.0.3
 ```
-<br />
 2. Importing the library:
 
 ```dart

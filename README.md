@@ -2,7 +2,12 @@
 
 [![pub package](https://img.shields.io/pub/v/mask_input_formatter.svg)](https://pub.dartlang.org/packages/mask_input_formatter)
 [![likes](https://badges.bar/mask_input_formatter/likes)](https://pub.dev/packages/mask_input_formatter/score)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![popularity](https://badges.bar/mask_input_formatter/popularity)](https://pub.dev/packages/mask_input_formatter/score)
+[![pub points](https://badges.bar/mask_input_formatter/pub%20points)](https://pub.dev/packages/mask_input_formatter/score)
+[![Platform](https://img.shields.io/badge/platform-flutter-blue.svg)](https://flutter.dev)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+
 
 The package provides TextInputFormatter for TextField and TextFormField which format the input by a given mask.
 
@@ -93,4 +98,4 @@ Suggestions and Pull requests are welcome. For major changes, please open an iss
 Amjad Jamali & his team members (Kamran Khan, Hina Hussain, Faiza Farooqui) :tada:
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[Apache 2.0](https://opensource.org/licenses/Apache-2.0/)

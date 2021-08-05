@@ -95,7 +95,8 @@ In last example. --> (AAA-###)
 Suggestions and Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Developer Team:
-Amjad Jamali & his team members (Kamran Khan, Hina Hussain, Faiza Farooqui) :tada:
+[Amjad Jamali](https://github.com/amjadjamali06) & team members ( [Kamran Khan](https://github.com/kamran8545), [Hina Hussain](https://github.com/Hina-Hussain), [Faiza Farooqui](https://github.com/Faiza-Farooqui) ) :tada:
+
 
 ## License
 [Apache 2.0](https://opensource.org/licenses/Apache-2.0/)
